@@ -112,7 +112,7 @@ process (CLK, nRST) begin
                 end if;
             end if;
         elsif (busy = '1') then
-            if (wh_cnt = 2**H-1 and rh_cnt = 2**H-1 and rw_cnt = 2**W-1) then
+            if (wh_cnt = 2**H-1 and rh_cnt = 2**(H-1)-1 and rw_cnt = 2**(W-1)-1) then
                 wh_cnt <= 0;
             end if;
         end if;
@@ -142,7 +142,7 @@ process (CLK, nRST) begin
                 end if;
             end if;
         elsif (busy = '1') then
-            if (wh_cnt = 2**H-1 and rh_cnt = 2**H-1 and rw_cnt = 2**W-1) then
+            if (wh_cnt = 2**H-1 and rh_cnt = 2**(H-1)-1 and rw_cnt = 2**(W-1)-1) then
                 ww_cnt <= 0;
             end if;
         end if;
@@ -191,7 +191,7 @@ process (CLK, nRST) begin
     if (nRST = '0') then
         busy <= '0';
     elsif (CLK'event and CLK = '1') then
-        if (rh_cnt = 2**H-1 and rwo_cnt = 2**(W-1)) then
+        if (rh_cnt = 2**(H-1)-1 and rwo_cnt = 2**(W-1)) then
             busy <= '0';
         elsif (wh_cnt = 2**H-1 and ww_cnt = 2**W-1) then
             busy <= '1';
@@ -213,7 +213,7 @@ process (CLK, nRST) begin
     if (nRST = '0') then
         rp_cnt <= 0;
     elsif (CLK'event and CLK = '1') then
-        if (rh_cnt = 2**H-1 and rwo_cnt = 2**(W-1)) then
+        if (rh_cnt = 2**(H-1)-1 and rwo_cnt = 2**(W-1)) then
             rp_cnt <= 0;
         elsif (rd_i = '1') then
             if (rwo_cnt = 2**(W-1)) then
